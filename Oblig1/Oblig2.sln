@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oblig1", "Oblig1\Oblig1.csproj", "{E7DC98F1-AF8A-4295-BD96-7778D363BF07}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oblig2", "Oblig2\Oblig2.csproj", "{E7DC98F1-AF8A-4295-BD96-7778D363BF07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
