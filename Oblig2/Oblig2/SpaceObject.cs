@@ -67,6 +67,19 @@ namespace SpaceSim
             this.rotationalPeriod = rotationalPeriod;
         }
 
+        public (double X, double Y) GetPositionAtTime(double time)
+        {
+            double angleRadians = (2 * Math.PI / orbitalPeriod) * time;
+            return CalculatePosition(angleRadians, orbitalRadius);
+        }
+
+        protected (double X, double Y) CalculatePosition(double angleRadians, double radius)
+        {
+            double x = radius * Math.Cos(angleRadians);
+            double y = radius * Math.Sin(angleRadians);
+            return (x, y);
+        }
+
         public override void Draw()
         {
             Console.Write("Planet : ");
@@ -105,6 +118,14 @@ namespace SpaceSim
             Console.Write("Moon : ");
             base.Draw();
         }
+
+        public new (double X, double Y) GetPositionAtTime(double time, (double X, double Y) planetPosition)
+        {
+            double angleRadians = (2 * Math.PI / orbitalPeriod) * time;
+            var moonPosition = CalculatePosition(angleRadians, orbitalRadius);
+            return (planetPosition.X + moonPosition.X, planetPosition.Y + moonPosition.Y);
+        }
+        
     }
 
     public class DwarfPlanet : Planet
