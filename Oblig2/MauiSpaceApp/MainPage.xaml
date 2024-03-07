@@ -10,7 +10,20 @@
     
         <HorizontalStackLayout>
             <Button
-                x:Name="Solen"/>
+                x:Name="Solen"
+                Clicked="Planet_OnClicked"/>
+            <Button
+                x:Name="Mercury"
+                Clicked="Planet_OnClicked"/>
+            <Button
+                x:Name="Terra"
+                Clicked="Planet_OnClicked"/>
+            <Button
+                x:Name="Moon"
+                Clicked="Planet_OnClicked"/>
+            <Button
+                x:Name="Venus"
+                Clicked="Planet_OnClicked"/>
         </HorizontalStackLayout>
-    </StackLayout>
+        </StackLayout>
 </ContentPage>

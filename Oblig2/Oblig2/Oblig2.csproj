@@ -8,4 +8,8 @@
         <RootNamespace>Oblig1</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SpaceLibrary\SpaceLibrary.csproj" />
+    </ItemGroup>
+
 </Project>

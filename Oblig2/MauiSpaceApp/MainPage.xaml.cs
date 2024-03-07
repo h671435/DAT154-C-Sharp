@@ -2,12 +2,15 @@
 
 public partial class MainPage : ContentPage
 {
-    int count = 0;
 
     public MainPage()
     {
         InitializeComponent();
     }
 
-   
+
+    private void Planet_OnClicked(object? sender, EventArgs e)
+    {
+        
+    }
 }

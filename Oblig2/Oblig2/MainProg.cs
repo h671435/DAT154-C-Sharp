@@ -24,7 +24,7 @@ class Astronomy
         SpaceObject planet1 = null;
         if (!string.IsNullOrEmpty(planet1Name))
         {
-            planet1 = solarSystem.FirstOrDefault(p => p.Name.ToLower() == planet1Name.ToLower());
+            planet1 = solarSystem.First(p => p.Name.ToLower() == planet1Name.ToLower());
         }
 
         if (planet1 == null)
