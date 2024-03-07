@@ -10,21 +10,13 @@ class Astronomy
         double time = double.Parse(Console.ReadLine());
         Console.WriteLine("Write the name of a planet (or none if you want all)");
         string planet1Name = Console.ReadLine();
-
-        List<SpaceObject> solarSystem = new List<SpaceObject>
-        {
-            new Star("Sun", 100, "Yellow"),
-            new Planet("Mercury", 10, 58, "Gray", 57910, 88),
-            new Planet("Venus", 30, 243, "Yellow", 108200, 225),
-            new Planet("Terra", 20, 24, "Blue", 149600, 365),
-            new Moon("The Moon", 4, 27, "Gray", 384, 27),
-            new DwarfPlanet("Pluto", 3, 150, "Brown", 5906000, 9052),
-        };
+        
+        List<SpaceObject> solarSystem = SpaceLibrary.SpaceObjectsList.SolarSystem;
         
         SpaceObject planet1 = null;
         if (!string.IsNullOrEmpty(planet1Name))
         {
-            planet1 = solarSystem.First(p => p.Name.ToLower() == planet1Name.ToLower());
+            planet1 = solarSystem.FirstOrDefault(p => p.Name.ToLower() == planet1Name.ToLower());
         }
 
         if (planet1 == null)

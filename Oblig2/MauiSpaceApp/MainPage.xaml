@@ -1,29 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiSpaceApp.MainPage">
 
-    <StackLayout>
-        <Image Source="space.jpg" Aspect="AspectFill"
-               VerticalOptions="FillAndExpand"
-               HorizontalOptions="FillAndExpand" />
-    
-        <HorizontalStackLayout>
+    <StackLayout VerticalOptions="CenterAndExpand">
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="100">
             <Button
                 x:Name="Solen"
-                Clicked="Planet_OnClicked"/>
+                Clicked="Planet_OnClicked"
+                Text="Solen"/>
             <Button
                 x:Name="Mercury"
-                Clicked="Planet_OnClicked"/>
-            <Button
-                x:Name="Terra"
-                Clicked="Planet_OnClicked"/>
-            <Button
-                x:Name="Moon"
-                Clicked="Planet_OnClicked"/>
+                Clicked="Planet_OnClicked"
+                Text="Merkur" />
             <Button
                 x:Name="Venus"
-                Clicked="Planet_OnClicked"/>
+                Clicked="Planet_OnClicked"
+                Text="Venus" />
+            <Button
+                x:Name="Jorden"
+                Clicked="Planet_OnClicked"
+                Text="Jorden" />
+            <Button
+                x:Name="Moon"
+                Clicked="Planet_OnClicked"
+                Text="Månen" />
         </HorizontalStackLayout>
-        </StackLayout>
+
+        <Grid>
+            <Image x:Name="SpaceImage"
+                   Source="space.jpg" 
+                   Aspect="AspectFill"
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand" />
+        </Grid>
+
+
+    </StackLayout>
 </ContentPage>
