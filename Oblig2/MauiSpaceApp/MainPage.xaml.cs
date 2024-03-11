@@ -11,7 +11,6 @@ public partial class MainPage : ContentPage
 
         List<SpaceObject> solarSystem = SpaceLibrary.SpaceObjectsList.SolarSystem;
         List<Ellipse> ellipses = new List<Ellipse>();
-        int 
 
         foreach (SpaceObject so in solarSystem)
         {
@@ -25,12 +24,22 @@ public partial class MainPage : ContentPage
             };
 
             ellipses.Add(ellipse);
-            ((Grid)SpaceImage.Parent).Children.Add(ellipse);
+            ((HorizontalStackLayout)PlanetLayout.Parent).Children.Add(ellipse);
         }
     }
 
 
     private void Planet_OnClicked(object? sender, EventArgs e)
     {
+        if (sender is Button button)
+        {
+            string planetName = button.Text;
+            ContentPage planetPage = new ContentPage
+            {
+                Content = new PlanetView(planetName)
+            };
+            Navigation.PushAsync(planetPage);
+        }
     }
+
 }

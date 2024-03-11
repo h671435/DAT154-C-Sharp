@@ -5,7 +5,7 @@
              x:Class="MauiSpaceApp.MainPage">
 
     <StackLayout VerticalOptions="CenterAndExpand">
-        <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="100">
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="100" x:Name="PlanetLayout">
             <Button
                 x:Name="Solen"
                 Clicked="Planet_OnClicked"
@@ -29,11 +29,11 @@
         </HorizontalStackLayout>
 
         <Grid>
-            <Image x:Name="SpaceImage"
+            <!--<Image x:Name="SpaceImage"
                    Source="space.jpg" 
                    Aspect="AspectFill"
                    VerticalOptions="FillAndExpand"
-                   HorizontalOptions="FillAndExpand" />
+                   HorizontalOptions="FillAndExpand" /> -->
         </Grid>
 
 
