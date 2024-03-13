@@ -28,7 +28,7 @@ public partial class MainPage : ContentPage
             };
 
             ellipses.Add(ellipse);
-            ((HorizontalStackLayout)PlanetLayout.Parent).Children.Add(ellipse);
+            PlanetLayout.Children.Add(ellipse);
         }
     }
 
