@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oblig3", "Oblig3\Oblig3.csproj", "{EE9F4A2A-EE8A-4696-9C00-98357F387ABF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE9F4A2A-EE8A-4696-9C00-98357F387ABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE9F4A2A-EE8A-4696-9C00-98357F387ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE9F4A2A-EE8A-4696-9C00-98357F387ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE9F4A2A-EE8A-4696-9C00-98357F387ABF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
