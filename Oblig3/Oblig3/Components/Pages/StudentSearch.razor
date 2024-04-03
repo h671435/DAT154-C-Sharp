@@ -3,33 +3,46 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Velkommen til studentsøkeren!</h1>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Velkommen til studentsøkeren!</h1>
 
-<fieldset>
-    <p>Søk etter en student!</p>
-    <input @bind="partialStudentName"/>
-    <br><br>
-    <button @onclick="Search">Søk</button>
-</fieldset>
+            <fieldset>
+                <legend>Søk etter en student!</legend>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Søk etter student" @bind="partialStudentName" @onkeydown="HandleKeyPress" />
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" @onclick="Search">Søk</button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
 
-@if (students != null)
-{
-    <br/> <br/>
-    <h2>Søkeresultater:</h2>
-    @if (students.Count == 0)
+    @if (students != null)
     {
-        <p>Ingen studenter funnet.</p>
+        <div class="row">
+            <div class="col">
+                <br />
+                <h2>Søkeresultater:</h2>
+                @if (students.Count == 0)
+                {
+                    <p>Ingen studenter funnet.</p>
+                }
+                else
+                {
+                    <ul class="list-group">
+                        @foreach (var student in students)
+                        {
+                            <li class="list-group-item">@student.Studentname</li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
     }
-    else
-    {
-        <ul>
-            @foreach (var student in students)
-            {
-                <li>@student.Studentname</li>
-            }
-        </ul>
-    }
-}
+</div>
 
 @code {
     private string partialStudentName;
@@ -46,6 +59,14 @@
         {
             students = searchResults;
             Console.WriteLine("Studenter hentet");
+        }
+    }
+
+    private async Task HandleKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            await Search();
         }
     }
 }
