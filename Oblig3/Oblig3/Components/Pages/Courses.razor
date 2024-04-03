@@ -1,0 +1,24 @@
+﻿@page "/courses"
+@using Microsoft.EntityFrameworkCore
+@rendermode InteractiveServer
+
+<PageTitle>Fag</PageTitle>
+
+<h1>Velg et fag</h1>
+
+@foreach (var c in _courses)
+{
+    <li>c.CourseName</li>
+}
+
+@code {
+    private List<Course> _courses;
+
+    protected override async Task OnInitializedAsync()
+    {
+        using (var context = new MyDbContext())
+        {
+            _courses = await context.GetCourses().ToListAsync();
+        }
+    }
+}

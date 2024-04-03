@@ -1,0 +1,51 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+<h1>Velkommen til studentsøkeren!</h1>
+
+<fieldset>
+    <p>Søk etter en student!</p>
+    <input @bind="partialStudentName"/>
+    <br><br>
+    <button @onclick="Search">Søk</button>
+</fieldset>
+
+@if (students != null)
+{
+    <br/> <br/>
+    <h2>Søkeresultater:</h2>
+    @if (students.Count == 0)
+    {
+        <p>Ingen studenter funnet.</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var student in students)
+            {
+                <li>@student.Studentname</li>
+            }
+        </ul>
+    }
+}
+
+@code {
+    private string partialStudentName;
+    private List<Student> students;
+
+    private async Task Search()
+    {
+        Console.WriteLine("Studenter hentes...");
+        using var myDbContext = new MyDbContext();
+
+        var searchResults = await myDbContext.SearchStudents(partialStudentName);
+
+        if (searchResults != null)
+        {
+            students = searchResults;
+            Console.WriteLine("Studenter hentet");
+        }
+    }
+}
