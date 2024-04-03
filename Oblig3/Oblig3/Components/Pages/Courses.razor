@@ -8,17 +8,44 @@
 
 @foreach (var c in _courses)
 {
-    <li>c.CourseName</li>
+    <button @onclick="() => NavigateToCourse(c.CourseCode)">@c.CourseName</button>
+    <br>
+}
+
+@if (courses != null)
+{
+    @foreach (var s in courses)
+    {
+        <li>
+            Student: @s.Student.Studentname <br/>
+            Karakter: @s.Grade.Score
+        </li>
+    }
 }
 
 @code {
-    private List<Course> _courses;
+    private List<StudentGrade> courses;
+
+    // Må være initialisert til å være new List<Course>, hvis ikke krasjer siden
+    private List<Course> _courses = new List<Course>();
 
     protected override async Task OnInitializedAsync()
     {
-        using (var context = new MyDbContext())
+        using var myDbContext = new MyDbContext();
+        _courses = await myDbContext.Course.ToListAsync();
+    }
+
+    private async Task NavigateToCourse(string courseCode)
+    {
+        Console.WriteLine("Fag hentes...");
+        using var myDbContext = new MyDbContext();
+
+        var searchResults = await myDbContext.StudentsInCourse(courseCode);
+
+        if (searchResults != null)
         {
-            _courses = await context.GetCourses().ToListAsync();
+            courses = searchResults;
+            Console.WriteLine("Fag hentet");
         }
     }
 }

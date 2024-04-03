@@ -9,4 +9,6 @@ public class Course
     public string CourseName { get; set; } = null!;
     public string Semester { get; set; } = null!;
     public string Teacher { get; set; } = null!;
+    
+    // public ICollection<Grade> Grades { get; set; }
 }

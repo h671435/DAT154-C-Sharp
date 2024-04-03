@@ -6,6 +6,7 @@ public partial class Student
     {
         Grades = new HashSet<Grade>();
     }
+    
     public int Id { get; set; }
     public string Studentname { get; set; } = null!;
     public int Studentage { get; set; }
