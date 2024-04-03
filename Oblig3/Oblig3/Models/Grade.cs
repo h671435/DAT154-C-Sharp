@@ -7,10 +7,11 @@ public class Grade
 {
     [Key]
     public int StudentId { get; set; }
-    [ForeignKey("CourseCode")]
     public string CourseCode { get; set; } = null!;
     [Column("grade")]
     public string Score { get; set; }
     [ForeignKey("StudentId")]
     public Student Student { get; set; }
+    [ForeignKey("CourseCode")]
+    public Course Course { get; set; }
 }

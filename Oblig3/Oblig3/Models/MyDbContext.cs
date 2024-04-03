@@ -23,9 +23,18 @@ public class MyDbContext : DbContext
     {
         return await Grade
             .Include(g => g.Student)
-            .Where(g => g.CourseCode == courseCode)
+            .Where(g => g.CourseCode.Equals(courseCode))
             .Select(g => new StudentGrade { Student = g.Student, Grade = g })
             .ToListAsync();
     }
-    
+
+    public async Task<List<StudentGradeCourse>> GradesAbove(string grade)
+    {
+        return await Grade
+            .Include(g => g.Student)
+            .Include(g => g.Course)
+            .Where(g => string.Compare(g.Score, grade) <= 0)
+            .Select(g => new StudentGradeCourse { Student = g.Student, Grade = g, Course = g.Course })
+            .ToListAsync();
+    }
 }
