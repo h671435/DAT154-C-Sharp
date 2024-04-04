@@ -94,7 +94,16 @@
         {
             feilmelding = "";
             redigerer = true;
-            students = await mdc.Student.Where(s => s.Studentname.Length > 0).ToListAsync();
+            students = await mdc.Grade
+                .Include(s => s.Student)
+                .Where(s => s.Course.CourseName == courseNavn)
+                .Select(s => s.Student)
+                .ToListAsync();
+            
+            foreach (var student in students)
+            {
+                Console.WriteLine(student.Studentname);
+            }
             return;
         }
 
