@@ -18,6 +18,11 @@ public class MyDbContext : DbContext
     {
         return await Student.Where(s => s.Studentname.Contains(partialStudentName)).ToListAsync();
     }
+    
+    public async Task<List<Course>> SearchCourse(string partialCourseName)
+    {
+        return await Course.Where(s => s.CourseName.Contains(partialCourseName)).ToListAsync();
+    }
 
     public async Task<List<StudentGrade>> StudentsInCourse(string courseCode)
     {

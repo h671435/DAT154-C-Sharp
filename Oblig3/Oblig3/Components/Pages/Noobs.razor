@@ -1,0 +1,48 @@
+﻿@page "/noobs"
+@using Microsoft.EntityFrameworkCore
+@rendermode InteractiveServer
+
+<PageTitle>Noobs</PageTitle>
+
+<div class="container">
+    <fieldset>
+        <legend>Her er de som har fått stryk på noen som helst fag smilefjes 😀😃😄😁😆😅😂🤣 </legend>
+
+        @if (noobs != null && noobs.Any())
+        {
+            @foreach (var v in noobs)
+            {
+                <div class="border rounded mb-3 p-3">
+                    <h5>@v.Student.Studentname</h5>
+                    <p><strong>Karakter:</strong> @v.Grade.Score</p>
+                    <p><strong>Fag:</strong> @v.Course.CourseName</p>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Ingen studenter har fått stryk på noen fag.</p>
+        }
+    </fieldset>
+</div>
+
+@code {
+    List<StudentGradeCourse> noobs;
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var myDbContext = new MyDbContext();
+
+        noobs = await myDbContext.Grade
+            .Include(g => g.Course)
+            .Include(g => g.Student)
+            .Where(g => g.Score.Equals("F"))
+            .Select(g => new StudentGradeCourse
+            {
+                Student = g.Student,
+                Grade = g,
+                Course = g.Course
+            })
+            .ToListAsync();
+    }
+}

@@ -1,0 +1,133 @@
+﻿@page "/edit"
+@using Microsoft.EntityFrameworkCore
+@rendermode InteractiveServer
+
+<PageTitle>Edit</PageTitle>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Velkommen til student endrerererern!</h1>
+
+            <fieldset>
+                <legend>Søk etter et fag!</legend>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Søk etter fag" @bind="courseNavn" @onkeydown="HandleKeyPress"/>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" @onclick="SearchCourses">Søk</button>
+                        <button class="btn btn-secondary" type="button" @onclick="EditStudent">Edit</button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    @if (redigerer)
+    {
+        <p>Hva vil du gjøre med faget?</p>
+        <button @onclick="LeggTilStudent">Legg til student</button>
+        <button @onclick="FjernStudent">Fjern student</button>
+    }
+
+    @if (feilmelding != "")
+    {
+        <p>@feilmelding</p>
+    }
+
+    @if (alle != null)
+    {
+        <div class="row">
+            <div class="col">
+                <br/>
+                <h2>Søkeresultater:</h2>
+                @if (alle.Count == 0)
+                {
+                    <p>Ingen studenter funnet.</p>
+                }
+                else
+                {
+                    <ul class="list-group">
+                        @foreach (var c in alle)
+                        {
+                            <li class="list-group-item">@c.CourseName</li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private string courseNavn;
+    List<Course> alle;
+    private string feilmelding;
+    private bool redigerer;
+
+    private async Task LeggTilStudent()
+    {
+        
+    }
+    
+    private async Task FjernStudent()
+    {
+        
+    }
+
+
+    private async Task EditStudent(string sn)
+    {
+        using var mdc = new MyDbContext();
+        if (!mdc.Student.Any(s => s.Studentname == sn) 
+            || mdc.Student.Where(s => s.Studentname.Contains(courseNavn)).Count() > 1)
+        {
+            feilmelding = "Det er ingen fag med det navnet, vennligst søk slik at du berre får tak i eit fag.";
+            return;
+        }
+
+        feilmelding = "";
+        redigerer = true;
+    }
+
+    private async Task SearchCourses(string sn)
+    {
+        using var myDbContext = new MyDbContext();
+
+        var searchResults = await myDbContext.SearchCourse(courseNavn);
+
+        if (searchResults != null)
+        {
+            alle = searchResults;
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var myDbContext = new MyDbContext();
+        var searchResults = await myDbContext.Course.ToListAsync();
+
+        if (searchResults != null)
+        {
+            alle = searchResults;
+        }
+    }
+
+    private async Task HandleKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            await SearchCourses(); // Kall metoden uten parameter
+        }
+    }
+
+    private async Task EditStudent()
+    {
+        await EditStudent(courseNavn);
+    }
+
+    private async Task SearchCourses()
+    {
+        await SearchCourses(courseNavn);
+    }
+}
