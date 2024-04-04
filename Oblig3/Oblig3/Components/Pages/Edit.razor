@@ -26,13 +26,21 @@
     @if (redigerer)
     {
         <p>Hva vil du gjøre med faget?</p>
-        <button @onclick="LeggTilStudent">Legg til student</button>
-        <button @onclick="FjernStudent">Fjern student</button>
+        <button class="btn btn-outline-secondary" @onclick="LeggTilStudent">Legg til student</button>
+        <button class="btn btn-outline-secondary" @onclick="FjernStudent">Fjern student</button>
     }
 
     @if (feilmelding != "")
     {
         <p>@feilmelding</p>
+        @if (students != null)
+        {
+            StateHasChanged();
+            @foreach (var s in students)
+            {
+                <p>@s.Studentname</p>
+            }
+        }
     }
 
     @if (alle != null)
@@ -43,7 +51,7 @@
                 <h2>Søkeresultater:</h2>
                 @if (alle.Count == 0)
                 {
-                    <p>Ingen studenter funnet.</p>
+                    <p>Ingen fag funnet.</p>
                 }
                 else
                 {
@@ -64,30 +72,37 @@
     List<Course> alle;
     private string feilmelding;
     private bool redigerer;
+    List<Student> students;
+    private Student _student;
 
     private async Task LeggTilStudent()
     {
-        
+        using var mdc = new MyDbContext();
     }
-    
+
     private async Task FjernStudent()
     {
-        
     }
 
 
     private async Task EditStudent(string sn)
     {
         using var mdc = new MyDbContext();
-        if (!mdc.Student.Any(s => s.Studentname == sn) 
-            || mdc.Student.Where(s => s.Studentname.Contains(courseNavn)).Count() > 1)
+
+        if (mdc.Course.Where(s => s.CourseName.Contains(courseNavn)).Count() == 1
+            || mdc.Course.Where(s => s.CourseName.Equals(courseNavn)).Count() == 1)
         {
-            feilmelding = "Det er ingen fag med det navnet, vennligst søk slik at du berre får tak i eit fag.";
+            feilmelding = "";
+            redigerer = true;
+            students = await mdc.Student.Where(s => s.Studentname.Length > 0).ToListAsync();
             return;
         }
 
-        feilmelding = "";
-        redigerer = true;
+        if (!mdc.Course.Any(s => s.CourseName == sn)
+            || mdc.Student.Where(s => s.Studentname.Contains(courseNavn)).Count() > 1)
+        {
+            feilmelding = "Det er ingen fag med det navnet, vennligst søk slik at du berre får tak i eit fag.";
+        }
     }
 
     private async Task SearchCourses(string sn)
@@ -130,4 +145,5 @@
     {
         await SearchCourses(courseNavn);
     }
+
 }
