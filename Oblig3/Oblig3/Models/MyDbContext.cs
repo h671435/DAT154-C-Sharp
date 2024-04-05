@@ -13,7 +13,15 @@ public class MyDbContext : DbContext
         optionsBuilder.UseSqlServer(
             "data source=dat154demo.database.windows.net;Initial Catalog=dat154;User ID=dat154_rw;Password=Svart_Katt;");
     }
-
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Student>().ToTable("student", schema: "dbo");
+        modelBuilder.Entity<Grade>().ToTable("grade", schema: "dbo");
+        modelBuilder.Entity<Course>().ToTable("course", schema: "dbo");
+        modelBuilder.Entity<Grade>().HasKey(e => new { e.StudentId, e.CourseCode });
+    }
+    
     public async Task<List<Student>> SearchStudents(string partialStudentName)
     {
         return await Student.Where(s => s.Studentname.Contains(partialStudentName)).ToListAsync();

@@ -3,15 +3,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Oblig3;
 
+[Table("grade", Schema = "dbo")]
 public class Grade
 {
-    [Key]
+    [ForeignKey("Student"), Column("studentid", TypeName = "int")]
     public int StudentId { get; set; }
-    public string CourseCode { get; set; } = null!;
-    [Column("grade")]
-    public string Score { get; set; }
-    [ForeignKey("StudentId")]
     public Student Student { get; set; }
-    [ForeignKey("CourseCode")]
+
+    [ForeignKey("Course"), Column("coursecode", TypeName = "char(6)")]
+    public string CourseCode { get; set; }
     public Course Course { get; set; }
+
+    [Column("grade", TypeName = "char(1)")]
+    public string Score { get; set; }
 }
