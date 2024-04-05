@@ -27,31 +27,46 @@
 
     @if (redigerer)
     {
-        <p>Hva vil du gjøre med faget?</p>
-        <button class="btn btn-outline-secondary" @onclick="AddStudent">Legg til student</button>
-        <button class="btn btn-outline-secondary" @onclick="RemoveStudent">Fjern student</button>
+        <div class="row">
+            <div class="col">
+                <p class="mb-2">Hva vil du gjøre med faget?</p>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-outline-secondary" @onclick="AddStudent">Legg til student</button>
+                    <button class="btn btn-outline-secondary" @onclick="RemoveStudent">Fjern student</button>
+                </div>
+            </div>
+        </div>
     }
 
     @if (feilmelding != "")
     {
-        <p>@feilmelding</p>
+        <div class="row mt-3">
+            <div class="col">
+                <div>@feilmelding</div>
+            </div>
+        </div>
     }
 
     @if (students != null)
     {
-        <p>Velg en student</p>
+        <div class="row mt-3">
+            <div class="col">
+                <p>Velg en student</p>
 
-        @foreach (var s in students)
-        {
-            <p @onclick="() => SetSelectedStudent(s)">@s.Studentname</p>
-        }
+                @foreach (var s in students)
+                {
+                    <div class="mb-2">
+                        <button class="btn btn-light" @onclick="() => SetSelectedStudent(s)">@s.Studentname</button>
+                    </div>
+                }
+            </div>
+        </div>
     }
 
     @if (alle != null)
     {
-        <div class="row">
+        <div class="row mt-4">
             <div class="col">
-                <br/>
                 <h2>Søkeresultater:</h2>
                 @if (alle.Count == 0)
                 {
